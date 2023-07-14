@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -15,4 +15,26 @@ async function getAllDB(params) {
   return collection.find(params).toArray()
 }
 
-module.exports = getAllDB
+async function getByIdDB(id) {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection('book');
+  const result = await collection.findOne({ _id: new ObjectId(id) })
+  console.log(result)
+  return result
+}
+
+async function createDB(data) {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection('book');
+  const result = await collection.insertOne(data)
+  return result
+}
+
+module.exports = {
+  getAllDB,
+  getByIdDB,
+  createDB
+}
+
