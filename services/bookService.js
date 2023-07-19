@@ -17,9 +17,6 @@ async function getById(id) {
 
 async function create(data) {
   try {
-    if (!(data.name && typeof data.name == "string")) {
-      throw ("Bad request")
-    }
     const result = await createDB(data)
     return result
   } catch (error) {

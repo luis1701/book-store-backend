@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const { getAll, getById, create } = require('../services/bookService')
-
+const { validateNewBookData } = require('../middlewares/booksMidd')
 /* GET books listing. */
 router.get('/', async function(req, res, next) {
   console.log(req.query)
@@ -18,12 +18,9 @@ router.get("/:id", async function(req, res) {
   res.send(result)
 })
 
-router.post('/', async function(req, res, next) {
+router.post('/', validateNewBookData, async function(req, res) {
   const { body } = req
   const result = await create(body)
-  if (!result) {
-    res.status(400).send('bad request');
-  }
   res.send(result);
 });
 
