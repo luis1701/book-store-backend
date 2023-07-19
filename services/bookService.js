@@ -1,4 +1,4 @@
-const {getAllDB, getByIdDB, createDB} = require('../repository/bookRepository')
+const {getAllDB, getByIdDB, createDB, updateDB} = require('../repository/bookRepository')
 
 async function getAll(category) {
   let params = {}
@@ -16,17 +16,19 @@ async function getById(id) {
 }
 
 async function create(data) {
-  try {
-    const result = await createDB(data)
-    return result
-  } catch (error) {
-    return false
-  }
+  const result = await createDB(data)
+  return result
+}
+
+async function update(id, data) {
+  const result = await updateDB(id, data)
+  return result
 }
 
 // module.exports = getById
 module.exports = {
   getAll,
   getById,
-  create
+  create,
+  update
 }

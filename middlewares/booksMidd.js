@@ -42,8 +42,28 @@ function validateNewBookData(req, res, next) {
   res.status(400).send(resultValidation.error);
 }
 
+function validateUpdateBookData(req, res, next) {
+  const { body } = req
+  
+  const updateSchema = bookSchema
+  updateSchema.properties.name.optional = true
+  updateSchema.properties.author.optional = true
+  updateSchema.properties.category.optional = true
+  updateSchema.properties.calification.optional = true
+  updateSchema.properties.comments.optional = true
+
+
+  const resultValidation = inspector.validate(bookSchema, body)
+  if (resultValidation.valid) {
+    next()
+    return
+  }
+  res.status(400).send(resultValidation.error);
+}
+
 module.exports = {
-  validateNewBookData
+  validateNewBookData,
+  validateUpdateBookData
 }
 
 

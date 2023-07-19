@@ -32,9 +32,18 @@ async function createDB(data) {
   return result
 }
 
+async function updateDB(id, data) {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection('book');
+  const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: data })
+  return result
+}
+
 module.exports = {
   getAllDB,
   getByIdDB,
-  createDB
+  createDB,
+  updateDB
 }
 
