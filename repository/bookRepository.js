@@ -40,10 +40,19 @@ async function updateDB(id, data) {
   return result
 }
 
+async function removeDB(id) {
+  await client.connect()
+  const db = client.db(dbName)
+  const collection = db.collection('book')
+  const result = await collection.deleteOne({ _id: new ObjectId(id) })
+  return result
+}
+
 module.exports = {
   getAllDB,
   getByIdDB,
   createDB,
-  updateDB
+  updateDB,
+  removeDB
 }
 

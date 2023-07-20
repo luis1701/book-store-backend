@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { getAll, getById, create, update } = require('../services/bookService')
+const { getAll, getById, create, update, remove } = require('../services/bookService')
 const { validateNewBookData, validateUpdateBookData } = require('../middlewares/booksMidd')
 /* GET books listing. */
 router.get('/', async function(req, res, next) {
@@ -28,6 +28,13 @@ router.patch('/:id', validateUpdateBookData, async function(req, res) {
   const { params, body } = req
   const { id } = params
   const result = await update(id, body)
+  res.send(result)
+})
+
+router.delete("/:id", async function(req, res) {
+  const { params } = req
+  const { id } = params
+  const result = await remove(id)
   res.send(result)
 })
 
