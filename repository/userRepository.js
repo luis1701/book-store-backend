@@ -6,53 +6,53 @@ const client = new MongoClient(url);
 
 const dbName = 'book-store';
 
-async function getAllDB(params) {
+async function getAllUser(params) {
   // Use connect method to connect to the server
   await client.connect();
   console.log('Connected successfully to server');
   const db = client.db(dbName);
-  const collection = db.collection('book');
+  const collection = db.collection('users');
   return collection.find(params).toArray()
 }
 
-async function getByIdDB(id) {
+async function getUserById(id) {
   await client.connect();
   const db = client.db(dbName);
-  const collection = db.collection('book');
+  const collection = db.collection('users');
   const result = await collection.findOne({ _id: new ObjectId(id) })
   console.log(result)
   return result
 }
 
-async function createDB(data) {
+async function createUserDB(data) {
   await client.connect();
   const db = client.db(dbName);
-  const collection = db.collection('book');
+  const collection = db.collection('users');
   const result = await collection.insertOne(data)
   return result
 }
 
-async function updateDB(id, data) {
+async function updateUserDB(id, data) {
   await client.connect();
   const db = client.db(dbName);
-  const collection = db.collection('book');
+  const collection = db.collection('users');
   const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: data })
   return result
 }
 
-async function removeDB(id) {
+async function removeUserById(id) {
   await client.connect();
   const db = client.db(dbName);
-  const collection = db.collection('book');
+  const collection = db.collection('users');
   const result = await collection.deleteOne({ _id: new ObjectId(id) })
   return result
 }
 
 module.exports = {
-  getAllDB,
-  getByIdDB,
-  createDB,
-  updateDB,
-  removeDB
+  getAllUser,
+  getUserById,
+  createUserDB,
+  updateUserDB,
+  removeUserById
 }
 
