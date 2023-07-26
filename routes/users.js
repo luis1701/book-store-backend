@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const { getAll, getUser, createUser, updateUser, removeUser } = require('../services/userService')
-const { validateNewUserData, validateUpdUserData } = require('../middlewares/usersMidd')
+const { getAll, getUser, createUser, updateUser, removeUser, login } = require('../services/userService')
+const { validateNewUserData, validateUpdUserData, validateLogin } = require('../middlewares/usersMidd')
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -22,6 +22,12 @@ router.get("/:id", async function(req, res) {
 router.post('/', validateNewUserData, async function(req, res) {
   const { body } = req
   const result = await createUser(body)
+  res.send(result);
+});
+
+router.post('/login', validateLogin, async function(req, res) {
+  const { body } = req
+  const result = await login(body.name, body.password)
   res.send(result);
 });
 

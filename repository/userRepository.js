@@ -48,11 +48,21 @@ async function removeUserById(id) {
   return result
 }
 
+async function loginUser(user, pwd) {
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection('users');
+  const result = await collection.findOne({ name: user, password: pwd })
+  console.log(result)
+  return result
+}
+
 module.exports = {
   getAllUser,
   getUserById,
   createUserDB,
   updateUserDB,
-  removeUserById
+  removeUserById,
+  loginUser
 }
 

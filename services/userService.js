@@ -1,4 +1,4 @@
-const {getAllUser, getUserById, createUserDB, updateUserDB, removeUserById} = require('../repository/userRepository')
+const {getAllUser, getUserById, createUserDB, updateUserDB, removeUserById, loginUser} = require('../repository/userRepository')
 
 async function getAll(role) {
   let params = {}
@@ -12,6 +12,12 @@ async function getAll(role) {
 
 async function getUser(id) {
   const result = await getUserById(id)
+  return result
+}
+
+async function login(user, pwd) {
+  
+  const result = await loginUser(user, pwd)
   return result
 }
 
@@ -36,5 +42,6 @@ module.exports = {
   getUser,
   createUser,
   updateUser,
-  removeUser
+  removeUser,
+  login
 }
