@@ -3,7 +3,8 @@ const {
   getAllUsersDB, 
   getUserByIdDB, 
   updateUserDB, 
-  removeUserDB 
+  removeUserDB, 
+  getUserByParamsDB
 } = require("../repository/userRepository");
 
 async function createUser(data) {
@@ -31,10 +32,16 @@ async function removeUser(id){
   return result;
 }
 
+async function getUserByParams(params){
+  const {user,password}=params;
+  const result = await getUserByParamsDB(user,password);
+  return result;
+}
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
-  removeUser
+  removeUser,
+  getUserByParams
 }

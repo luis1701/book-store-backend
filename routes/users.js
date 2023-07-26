@@ -6,7 +6,8 @@ const {
   createUser,
   getUserById,
   updateUser,
-  removeUser
+  removeUser,
+  getUserByParams
 } = require('../services/userService');
 const { validateNewUserData, validateUpdateUserData } = require('../middlewares/usersMidd');
 
@@ -44,4 +45,9 @@ router.delete('/:id', async function (req, res) {
   res.send(result);
 });
 
+router.post('/login', async function (req, res) {
+  const { body } = req;
+  const result = await getUserByParams(body);
+  res.send(result);
+})
 module.exports = router;

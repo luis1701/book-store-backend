@@ -46,10 +46,27 @@ async function removeUserDB(id){
   return result;
 }
 
+async function getUserByParamsDB(user,password){
+  await client.connect();
+  const db = client.db(dbName);
+  const collection = db.collection('user');
+  const result = await collection.findOne({user:user,password:password});
+  if(result===null){
+    return(
+      {
+        "success": false,
+        "message": "Credenciales incorrectas. Por favor, verifica tu usuario y contraseña."
+      }
+    )
+  }
+  return result;
+}
+
 module.exports = {
   getAllUsersDB,
   createUserDB,
   getUserByIdDB,
   updateUserDB,
-  removeUserDB
+  removeUserDB,
+  getUserByParamsDB
 }
