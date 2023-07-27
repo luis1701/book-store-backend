@@ -1,4 +1,4 @@
-const {getAllUser, getUserById, createUserDB, updateUserDB, removeUserById, loginUser} = require('../repository/userRepository')
+const {getAllUser, getUserById, createUserDB, updateUserDB, removeUserById, getUserByParams} = require('../repository/userRepository')
 
 async function getAll(role) {
   let params = {}
@@ -16,8 +16,11 @@ async function getUser(id) {
 }
 
 async function login(user, pwd) {
-  
-  const result = await loginUser(user, pwd)
+  const params = {
+    name: user,
+    password: pwd
+  }
+  const result = await getUserByParams(params)
   return result
 }
 
