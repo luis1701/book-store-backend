@@ -34,6 +34,7 @@ let palabras = ['largo', 'larguisimo', 'larguisisimo', 'megalarguisimo'];
     }
 // palabra palindromo
 
+
 function texto()
 {
 	var palabra=prompt("Escribe una palabra ana").toLowerCase();
